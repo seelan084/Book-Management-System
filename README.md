@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+# Book-Management-System
+Access  and Read Books
+>>>>>>> 3ecd353f314a1b6e8eda0471cd2696cf1e35cf94
 # Book Management System
 
 A full-stack web application for managing books and users, featuring authentication, admin/user roles, and book link management.
