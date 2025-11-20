@@ -1,156 +1,186 @@
-<<<<<<< HEAD
-=======
-# Book-Management-System
-Access  and Read Books
->>>>>>> 3ecd353f314a1b6e8eda0471cd2696cf1e35cf94
-# Book Management System
+📱 Mytel – Mobile Recharge & Billing System
 
-A full-stack web application for managing books and users, featuring authentication, admin/user roles, and book link management.
+A full-stack telecom simulation project that allows users to register, recharge prepaid numbers, pay postpaid bills, view mobile profiles, and convert prepaid ↔ postpaid.
+The project includes a Spring Boot backend deployed on Render and a static frontend hosted separately.
 
-## Features
+🚀 Features
+✅ User Management
 
-- User registration and login with JWT authentication
-- Admin and regular user roles
-- Add, edit, delete, and view books (with optional links)
-- Admin dashboard with user and book management
-- Responsive UI built with React and Material-UI
-- Backend REST API built with Spring Boot and MySQL
+Register mobile numbers as Prepaid or Postpaid
 
----
+Automatic validation for duplicate mobile numbers
 
-## Project Structure
+Auto-creation of prepaid accounts on first recharge (if needed)
 
-```
-book-management/
+✅ Prepaid Module
+
+Recharge prepaid mobile numbers
+
+Update and display new balance
+
+Restrict recharge for postpaid numbers
+
+✅ Postpaid Module
+
+Pay monthly bills
+
+Auto-update outstanding bill after payment
+
+Prevent payment for non-postpaid numbers
+
+✅ Profile Module
+
+Fetch user profile by mobile number
+
+View account type, balance, outstanding bill
+
+✅ Plan Conversion
+
+Prepaid → Postpaid
+
+Postpaid → Prepaid
+
+Safety checks:
+
+Postpaid bill must be cleared before conversion
+
+Account type validation
+
+🏗️ Tech Stack
+Frontend
+
+HTML5, CSS3, JavaScript
+
+Modular JS structure (separate files for each module)
+
+Node.js HTTPS server used during development
+
+Hosted on Render static site service
+
+Backend
+
+Java 17
+
+Spring Boot 3
+
+Spring Web
+
+Spring Data JPA
+
+PostgreSQL (Render Cloud Database)
+
+Hibernate ORM
+
+Tools
+
+IntelliJ IDEA / VS Code
+
+Postman
+
+Git & GitHub
+
+Maven
+
+Render (Hosting)
+
+🌐 Live URLs
+
+Frontend:
+🔗 https://mytelproject.onrender.com
+
+Backend (REST API):
+🔗 https://mytel-backend.onrender.com
+
+📂 Project Structure
+MytelProject/
 │
-├── frontend/         # React + Vite frontend
-│   ├── src/
-│   ├── package.json
-│   └── ...
+├── backend/
+│   ├── src/main/java/com/mytel/
+│   │   ├── controller/
+│   │   ├── dto/
+│   │   ├── model/
+│   │   ├── repository/
+│   │   └── service/
+│   └── resources/application.properties
 │
-├── src/              # Spring Boot backend (Java)
-│   ├── main/
-│   │   ├── java/
-│   │   └── resources/
-│   └── ...
-├── pom.xml           # Maven backend build file
-├── HELP.md           # Spring Boot help and references
-└── ...
-```
+└── frontend/
+    ├── prepaid/
+    ├── postpaid/
+    ├── profile/
+    ├── register/
+    ├── js/
+    ├── css/
+    └── index.html
 
----
+🔌 API Endpoints
+Register
+POST /api/register
 
-## Prerequisites
+Prepaid Recharge
+POST /api/prepaid/recharge
 
-- **Java 21+**
-- **Node.js 18+** and **npm**
-- **MySQL 8+** (or compatible)
+Postpaid Bill Payment
+POST /api/postpaid/paybill
 
----
+Profile
+GET /api/profile/{mobile}
 
-## Backend Setup (Spring Boot)
+Conversions
+PUT /api/convert/prepaid-to-postpaid/{mobile}
+PUT /api/convert/postpaid-to-prepaid/{mobile}
 
-1. **Configure MySQL**
+📦 Backend Setup (Local)
+1. Clone repository
+git clone https://github.com/your-repo/MytelProject.git
 
-   - Create a database named `book_management` (auto-created if not exists).
-   - Update `src/main/resources/application.properties` if your MySQL username/password differ:
-     ```
-     spring.datasource.username=YOUR_USERNAME
-     spring.datasource.password=YOUR_PASSWORD
-     ```
+2. Configure database
 
-2. **Build and Run**
+In application.properties:
 
-   ```
-   ./mvnw spring-boot:run
-   ```
-   or on Windows:
-   ```
-   mvnw.cmd spring-boot:run
-   ```
+spring.datasource.url=jdbc:postgresql://localhost:5432/mytel_db
+spring.datasource.username=postgres
+spring.datasource.password=your-password
+spring.jpa.hibernate.ddl-auto=update
 
-   The backend runs on [http://localhost:8082](http://localhost:8082) by default.
+3. Run backend
+mvn spring-boot:run
 
-3. **Default Admin User**
+🌐 Frontend Setup (Local)
+cd frontend
+node server.js
 
-   - Username: `badadmin`
-   - Password: `badadmin`
 
-   This user is created automatically on first run if not present.
+Then open:
 
----
+https://localhost:5500
 
-## Frontend Setup (React + Vite)
+🛠️ Deployment (Render)
+Backend
 
-1. **Install dependencies**
+Build command:
+mvn clean install -DskipTests
 
-   ```
-   cd frontend
-   npm install
-   ```
+Start command:
+java -jar target/*.jar
 
-2. **Start the development server**
+Frontend
 
-   ```
-   npm run dev
-   ```
+Publish directory: frontend/
 
-   The frontend runs on [http://localhost:5173](http://localhost:5173) by default.
+Build command: (empty)
 
-3. **API Configuration**
+📘 Summary
 
-   - The frontend is pre-configured to use the backend at `http://localhost:8082`.
-   - If you change backend ports, update the API base URL in the frontend code.
+Mytel is a complete end-to-end telecom simulation app showcasing:
 
----
+REST API development
 
-## Usage
+Database design
 
-- **Login** as admin (`badadmin` / `admin123`) or register a new user.
-- **Admin** can:
-  - View dashboard with user/book stats
-  - Add/edit/delete books (including book links)
-  - Manage users
-- **Regular users** can:
-  - View and search books
-  - Add books (if permitted)
-- **Book Links**: Add a URL to a book (e.g., purchase or info link). Displayed as a clickable button.
+Cloud deployment
 
----
+Full-stack integration
 
-## Database Schema
+Real telecom workflows (Recharge, Billing, Conversion)
 
-- See `src/main/resources/schema.sql` for table definitions.
-- Tables: `users`, `roles`, `user_roles`, `books`
-- Book entity includes a `book_link` field for external URLs.
-
----
-
-## Customization
-
-- **CORS**: Configured to allow frontend port in backend.
-- **JWT Secret**: Change `jwt.secret` in `application.properties` for production.
-- **Logging**: Debug logging enabled for development.
-
----
-
-## Troubleshooting
-
-- **White screen or login issues**: Check browser console and backend logs.
-- **MySQL connection errors**: Ensure MySQL is running and credentials are correct.
-- **Port conflicts**: Make sure ports 8082 (backend) and 5173 (frontend) are free.
-
----
-
-## References
-
-- [Spring Boot Documentation](https://spring.io/projects/spring-boot)
-- [React Documentation](https://react.dev/)
-- [Material-UI](https://mui.com/)
-- [Vite](https://vitejs.dev/)
-
----
-
-## License
-
-This project is for educational/demo purposes. 
+Perfect for interviews, portfolio, and demonstrating full-stack development skills.
