@@ -1,62 +1,25 @@
-📱 Mytel – Mobile Recharge & Billing System
+📱 MYTEL – MOBILE RECHARGE & BILLING SYSTEM
 
-A full-stack telecom simulation project that allows users to register, recharge prepaid numbers, pay postpaid bills, view mobile profiles, and convert prepaid ↔ postpaid.
-The project includes a Spring Boot backend deployed on Render and a static frontend hosted separately.
+A full-stack telecom simulation project that allows users to register, recharge prepaid numbers, pay postpaid bills, view profiles, and convert between PREPAID ↔ POSTPAID.
+Built using Java Spring Boot (backend) and HTML/CSS/JS (frontend), deployed on Render.
 
-🚀 Features
-✅ User Management
+🚀 PROJECT OVERVIEW
 
-Register mobile numbers as Prepaid or Postpaid
+Mytel is a telecom account management system that allows:
 
-Automatic validation for duplicate mobile numbers
+Prepaid recharge
 
-Auto-creation of prepaid accounts on first recharge (if needed)
+Postpaid bill payments
 
-✅ Prepaid Module
+Fetching user profile
 
-Recharge prepaid mobile numbers
+Creating new accounts
 
-Update and display new balance
+Converting between prepaid and postpaid plans
 
-Restrict recharge for postpaid numbers
+This project provides a real-world billing workflow used in telecom systems, demonstrating backend logic, database interactions, and frontend integration.
 
-✅ Postpaid Module
-
-Pay monthly bills
-
-Auto-update outstanding bill after payment
-
-Prevent payment for non-postpaid numbers
-
-✅ Profile Module
-
-Fetch user profile by mobile number
-
-View account type, balance, outstanding bill
-
-✅ Plan Conversion
-
-Prepaid → Postpaid
-
-Postpaid → Prepaid
-
-Safety checks:
-
-Postpaid bill must be cleared before conversion
-
-Account type validation
-
-🏗️ Tech Stack
-Frontend
-
-HTML5, CSS3, JavaScript
-
-Modular JS structure (separate files for each module)
-
-Node.js HTTPS server used during development
-
-Hosted on Render static site service
-
+🛠️ TOOLS & TECHNOLOGIES
 Backend
 
 Java 17
@@ -71,116 +34,173 @@ PostgreSQL (Render Cloud Database)
 
 Hibernate ORM
 
-Tools
-
-IntelliJ IDEA / VS Code
-
-Postman
-
-Git & GitHub
-
 Maven
 
-Render (Hosting)
+Frontend
 
-🌐 Live URLs
+HTML5
 
-Frontend:
-🔗 https://mytelproject.onrender.com
+CSS3
 
-Backend (REST API):
-🔗 https://mytel-backend.onrender.com
+JavaScript (Fetch API)
 
-📂 Project Structure
+Deployment
+
+Render Web Service (Backend)
+
+Render Static Site (Frontend)
+
+🌐 LIVE LINKS
+🔹 Frontend (UI):
+
+👉 https://mytelproject.onrender.com
+
+🔹 Backend API (REST):
+
+👉 https://mytel-backend.onrender.com
+
+✨ KEY FEATURES
+1. User Registration
+
+Register a mobile number as PREPAID or POSTPAID
+
+Stored in PostgreSQL database
+
+2. Prepaid Recharge
+
+Recharge any PREPAID number
+
+If number not registered → auto-creates a prepaid account
+
+Updates wallet balance
+
+3. Postpaid Bill Payment
+
+Pay outstanding bills for POSTPAID accounts
+
+Ensures outstanding never goes below zero
+
+4. Profile Lookup
+
+View full account details:
+
+Mobile number
+
+Account type
+
+Balance
+
+Outstanding bill
+
+5. Prepaid ↔ Postpaid Conversion
+
+Validations:
+
+Postpaid → Prepaid requires bill clearance
+
+Prevent invalid conversions
+
+6. Real Backend Integration
+
+All pages call the backend via Fetch API
+
+API responses rendered dynamically on UI
+
+📂 PROJECT STRUCTURE
 MytelProject/
 │
 ├── backend/
 │   ├── src/main/java/com/mytel/
 │   │   ├── controller/
-│   │   ├── dto/
-│   │   ├── model/
+│   │   ├── service/
+│   │   ├── service/impl/
 │   │   ├── repository/
-│   │   └── service/
-│   └── resources/application.properties
+│   │   └── model/
+│   ├── src/main/resources/
+│   └── pom.xml
 │
-└── frontend/
-    ├── prepaid/
-    ├── postpaid/
-    ├── profile/
-    ├── register/
-    ├── js/
-    ├── css/
-    └── index.html
+├── frontend/
+│   ├── index.html
+│   ├── pages/
+│   ├── js/
+│   ├── css/
+│   └── assets/
+│
+└── README.md
 
-🔌 API Endpoints
-Register
-POST /api/register
+⚙️ BACKEND SETUP (LOCAL)
+1. Clone Repository
+git clone https://github.com/your-username/MytelProject
 
+2. Update PostgreSQL Credentials
+
+Edit:
+backend/src/main/resources/application.properties
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/mytel_db
+spring.datasource.username=your_user
+spring.datasource.password=your_password
+spring.jpa.hibernate.ddl-auto=update
+
+3. Run Backend
+mvn spring-boot:run
+
+
+Backend runs on:
+👉 http://localhost:8080
+
+💻 FRONTEND SETUP (LOCAL)
+1. Open frontend folder
+cd frontend
+
+2. Start with Live Server (VS Code)
+Right click → "Open with Live Server"
+
+
+Frontend runs on:
+👉 http://127.0.0.1:5500
+
+🧩 IMPORTANT API ENDPOINTS
 Prepaid Recharge
 POST /api/prepaid/recharge
 
-Postpaid Bill Payment
+Register User
+POST /api/register
+
+Postpaid Bill Pay
 POST /api/postpaid/paybill
 
-Profile
+Profile Fetch
 GET /api/profile/{mobile}
 
-Conversions
+Conversion
 PUT /api/convert/prepaid-to-postpaid/{mobile}
 PUT /api/convert/postpaid-to-prepaid/{mobile}
 
-📦 Backend Setup (Local)
-1. Clone repository
-git clone https://github.com/your-repo/MytelProject.git
-
-2. Configure database
-
-In application.properties:
-
-spring.datasource.url=jdbc:postgresql://localhost:5432/mytel_db
-spring.datasource.username=postgres
-spring.datasource.password=your-password
-spring.jpa.hibernate.ddl-auto=update
-
-3. Run backend
-mvn spring-boot:run
-
-🌐 Frontend Setup (Local)
-cd frontend
-node server.js
-
-
-Then open:
-
-https://localhost:5500
-
-🛠️ Deployment (Render)
+☁️ DEPLOYMENT (Render)
 Backend
 
-Build command:
-mvn clean install -DskipTests
+Build using Dockerfile
 
-Start command:
-java -jar target/*.jar
+Auto deploys on commit
+
+Uses Render PostgreSQL database
 
 Frontend
 
-Publish directory: frontend/
+Render Static Site
 
-Build command: (empty)
+Publish directory: frontend
 
-📘 Summary
+No build command (pure HTML/CSS/JS)
 
-Mytel is a complete end-to-end telecom simulation app showcasing:
+📘 PROJECT SUMMARY
 
-REST API development
+Mytel is a complete telecom management system simulating real prepaid/postpaid workflows.
+It demonstrates your ability to:
 
-Database design
-
-Cloud deployment
-
-Full-stack integration
-
-Real telecom workflows (Recharge, Billing, Conversion)
-
-Perfect for interviews, portfolio, and demonstrating full-stack development skills.
+✔ Build REST APIs in Spring Boot
+✔ Integrate frontend → backend
+✔ Manage PostgreSQL with JPA
+✔ Deploy full-stack projects on Render
+✔ Handle real telecom scenarios (billing, recharge, profile management)
